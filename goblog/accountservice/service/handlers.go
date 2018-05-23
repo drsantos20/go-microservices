@@ -11,7 +11,7 @@ import (
 
 var DBClient dbclient.IBoltClient
 
-func GetAccount(w http.ResponseWriter, r *http.Request) {
+func GetAccountById(w http.ResponseWriter, r *http.Request) {
 
 	// Read the 'accountId' path parameter from the mux map
 	var accountId = mux.Vars(r)["accountId"]
@@ -28,7 +28,12 @@ func GetAccount(w http.ResponseWriter, r *http.Request) {
 	// If found, marshal into JSON, write headers and content
 	data, _ := json.Marshal(account)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
+}
+
+func GetAccount(w http.ResponseWriter, r *http.Request) {
+
 }
