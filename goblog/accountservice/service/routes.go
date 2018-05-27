@@ -23,4 +23,18 @@ var routes = Routes{
 		"/accounts/{accountId}", // Route pattern
 		GetAccountById,
 	},
+
+	Route{
+		"GetAccount", // Name
+		"GET",        // HTTP method
+		"/accounts",  // Route pattern
+		GetAccount,
+	},
+
+	Route{
+		"Add",  // Name
+		"POST", // HTTP method
+		"/add", // Route pattern
+		CreateAccount,
+	},
 }

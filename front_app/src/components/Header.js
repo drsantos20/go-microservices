@@ -10,6 +10,7 @@ const Header = () => (
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/roster'>Roster</Link></li>
         <li><Link to='/schedule'>Schedule</Link></li>
+        <li><Link to='/add'>Add New User</Link></li>
       </ul>
     </nav>
   </header>

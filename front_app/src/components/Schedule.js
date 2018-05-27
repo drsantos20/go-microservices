@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const Schedule = () => (
-  <div>
-    <ul>
-      <li>6/5 @ Evergreens</li>
-      <li>6/8 vs Kickers</li>
-      <li>6/14 @ United</li>
-    </ul>
-  </div>
-)
+class Schedule extends Component {
+  constructor() {
+    super();
+    this.state = {
+      users: [],
+    };
+  }
+
+  componentDidMount() {
+
+    fetch('http://localhost:6767/accounts')
+    .then(results => {
+      return results.json();
+    }).then(data => { 
+      this.setState({
+        users: data.accounts
+      })
+      console.log("state", this.state.users)
+    }).catch(err => {
+
+    });
+  }
+
+  render(){
+    return <ul>
+      {this.state.users.map((item,i) => <li key={i}>{item.name}</li>)}
+    </ul>;
+  }
+}
+
 
 export default Schedule

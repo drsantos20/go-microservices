@@ -1,6 +1,7 @@
 package dbclient
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -13,12 +14,58 @@ import (
 type IBoltClient interface {
 	OpenBoltDb()
 	QueryAccount(accountId string) (model.Account, error)
+	RetrieveAllAccounts() (model.Account, error)
+	CreateAccount(account model.Account) (model.Account, error)
 	Seed()
 }
 
 // Real implementation
 type BoltClient struct {
 	boltDB *bolt.DB
+}
+
+func (bc *BoltClient) CreateAccount(account model.Account) (model.Account, error) {
+
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+
+		b := tx.Bucket([]byte("AccountBucket"))
+		err := b.Put([]byte(account.Id), []byte(account.Name))
+		return err
+	})
+
+	return account, err
+}
+
+func (bc *BoltClient) RetrieveAllAccounts() (model.Account, error) {
+	// Allocate an empty Account instance we'll let json.Unmarhal populate for us in a bit.
+	account := model.Account{}
+
+	var buffer bytes.Buffer
+
+	// Read an object from the bucket using boltDB.View
+	err := bc.boltDB.View(func(tx *bolt.Tx) error {
+
+		// Read the bucket from the DB
+		b := tx.Bucket([]byte("AccountBucket"))
+		buffer.WriteString(`[`)
+		b.ForEach(func(k, v []byte) error {
+			buffer.WriteString(string(v) + `,`)
+			return nil
+		})
+		var result = buffer.String()
+		result = result[:len(result)-1]
+		result += `]`
+
+		json.Unmarshal([]byte(result), &account.Accounts)
+		return nil
+	})
+
+	// If there were an error, return the error
+	if err != nil {
+		return model.Account{}, err
+	}
+	// Return the Account struct and nil as error.
+	return account, nil
 }
 
 func (bc *BoltClient) QueryAccount(accountId string) (model.Account, error) {
@@ -78,7 +125,7 @@ func (bc *BoltClient) initializeBucket() {
 // Seed (n) make-believe account objects into the AcountBucket bucket.
 func (bc *BoltClient) seedAccounts() {
 
-	total := 100
+	total := 30
 	for i := 0; i < total; i++ {
 
 		// Generate a key 10000 or larger
