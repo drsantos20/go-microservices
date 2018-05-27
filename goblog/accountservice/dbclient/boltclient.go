@@ -28,8 +28,12 @@ func (bc *BoltClient) CreateAccount(account model.Account) (model.Account, error
 
 	err := bc.boltDB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("AccountBucket"))
-		err := b.Put([]byte(account.Id), []byte(`{"id": "`+account.Id+`", "name":"`+account.Name+`"}`))
-		return err
+
+		encoded, err := json.Marshal(account)
+		if err != nil {
+			return err
+		}
+		return b.Put([]byte(account.Id), encoded)
 	})
 
 	return account, err
