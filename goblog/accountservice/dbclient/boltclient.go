@@ -26,10 +26,9 @@ type BoltClient struct {
 
 func (bc *BoltClient) CreateAccount(account model.Account) (model.Account, error) {
 
-	err := bc.boltDB.View(func(tx *bolt.Tx) error {
-
+	err := bc.boltDB.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte("AccountBucket"))
-		err := b.Put([]byte(account.Id), []byte(account.Name))
+		err := b.Put([]byte(account.Id), []byte(`{"id": "`+account.Id+`", "name":"`+account.Name+`"}`))
 		return err
 	})
 
@@ -50,6 +49,7 @@ func (bc *BoltClient) RetrieveAllAccounts() (model.Account, error) {
 		buffer.WriteString(`[`)
 		b.ForEach(func(k, v []byte) error {
 			buffer.WriteString(string(v) + `,`)
+			println("key", string(k), "value", string(v))
 			return nil
 		})
 		var result = buffer.String()
@@ -57,6 +57,7 @@ func (bc *BoltClient) RetrieveAllAccounts() (model.Account, error) {
 		result += `]`
 
 		json.Unmarshal([]byte(result), &account.Accounts)
+		println(json.Unmarshal([]byte(result), &account.Accounts))
 		return nil
 	})
 

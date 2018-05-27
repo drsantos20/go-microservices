@@ -1,34 +1,41 @@
 import React from 'react'
 
 class Form extends React.Component {
-    constructor() {
-      super();
-      this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   
     handleSubmit(event) {
       event.preventDefault();
-      const data = new FormData(event.target);
-      
-      fetch('/api/form-submit-url', {
+      const form = event.target;
+      const data = new FormData(form);
+      console.log(data.get('Id'))
+      console.log(data.get('Name'))
+
+      for (let name of data.keys()) {
+        const input = form.elements[name];
+      }
+
+      fetch('http://localhost:6767/add', {
         method: 'POST',
-        body: data,
+        body: JSON.stringify({
+          Id: data.get('Id'),
+          Name: data.get('Name')
+        })
       });
     }
-  
+
     render() {
       return (
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Enter username</label>
-          <input id="username" name="username" type="text" />
+          <label htmlFor="Id">Enter id</label>
+          <input id="Id" name="Id" type="text" />
   
-          <label htmlFor="email">Enter your email</label>
-          <input id="email" name="email" type="email" />
+          <label htmlFor="Name">Enter your name</label>
+          <input id="Name" name="Name" type="Name" />
   
-          <label htmlFor="birthdate">Enter your birth date</label>
-          <input id="birthdate" name="birthdate" type="text" />
-  
-          <button>Send data!</button>
+          <button>Register</button>
         </form>
       );
     }

@@ -46,27 +46,26 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	log.Println(t.Name)
+	log.Println(t.Id)
 
 	var account model.Account
 
-	account.Id = r.FormValue("id")
-	//account.Name = r.FormValue("Name")
+	account.Id = t.Id
+	account.Name = t.Name
+	account.Accounts = nil
 
 	println("before create ", account.Id, account.Name)
 	account, err := DBClient.CreateAccount(account)
 
 	if err != nil {
+		println("nil is not null")
 		w.WriteHeader(http.StatusNotFound)
 	}
 
 	// If found, marshal into JSON, write headers and content
-	data, _ := json.Marshal(account)
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
 	w.WriteHeader(http.StatusOK)
-	w.Write(data)
-
 }
 
 func GetAccount(w http.ResponseWriter, r *http.Request) {
