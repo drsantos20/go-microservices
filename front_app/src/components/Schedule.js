@@ -4,36 +4,31 @@ class Schedule extends Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
-      name: ""
+      users: [],
     };
   }
 
-
   componentDidMount() {
 
-    fetch('http://localhost:6767/accounts/10000')
+    fetch('http://localhost:6767/accounts')
     .then(results => {
       return results.json();
     }).then(data => { 
-      console.log(data.id)
-      this.setState({id: data.id})
-      this.setState({name: data.name})
-
+      this.setState({
+        users: data.accounts
+      })
+      console.log("state", this.state.users)
     }).catch(err => {
 
     });
   }
 
-  render() {
-    return (
-      <div className="container2">
-        <div className="container1">
-          {this.state.id}
-          {this.state.name}
-        </div>
-      </div>
-    )
+  render(){
+    return <ul>
+      {this.state.users.map((item,i) => <li key={i}>{item.name}</li>)}
+    </ul>;
   }
 }
+
+
 export default Schedule
