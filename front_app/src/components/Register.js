@@ -1,6 +1,8 @@
 import React from 'react'
+import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-class Form extends React.Component {
+
+class Register extends React.Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,17 +30,22 @@ class Form extends React.Component {
 
     render() {
       return (
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="Id">Enter id</label>
-          <input id="Id" name="Id" type="text" />
-  
-          <label htmlFor="Name">Enter your name</label>
-          <input id="Name" name="Name" type="Name" />
-  
-          <button>Register</button>
-        </form>
+        <Container>
+          <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label for="Id">Id</Label>
+            <Input type="Id" name="Id" id="Id" placeholder="enter your Id" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="Name">Name</Label>
+            <Input type="Name" name="Name" id="Name" placeholder="enter your Name" />
+          </FormGroup>
+          <Button>Submit</Button>
+          </Form>
+        </Container>
+
       );
     }
   }
 
-  export default Form
+  export default Register
