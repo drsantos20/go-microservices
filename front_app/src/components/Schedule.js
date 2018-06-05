@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Table, Container } from 'reactstrap';
 
 class Schedule extends Component {
   constructor() {
@@ -24,9 +25,23 @@ class Schedule extends Component {
   }
 
   render(){
-    return <ul>
-      {this.state.users.map((item,i) => <li key={i}>{item.name}</li>)}
-    </ul>;
+
+    return (
+      <Container>
+        <Table dark>
+        <thead>
+          <tr>
+            <th>First Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{this.state.users.map((item,i) => <div key={i}>{item.name}</div>)}</td>
+          </tr>
+        </tbody>
+      </Table>
+    </Container>
+    )
   }
 }
 
