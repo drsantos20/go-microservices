@@ -1,0 +1,26 @@
+
+// Bootstrap and its default variables
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
+// Font Variables
+$roboto-slab: 'Roboto', sans-serif;   
+
+div {
+  color: var(--cyan);
+  font: 1.2rem/1.5 var(--font-family-sans-serif);
+}
+
+p {
+  font-family: $roboto-slab;
+  font-weight: normal;
+  color: var(--cyan);
+}
+#register {
+  padding-top: 50px
+}
+
+#schedule {
+  padding-top: 50px
+}

@@ -27,6 +27,7 @@ class Schedule extends Component {
   render(){
 
     return (
+      <div id="schedule">
       <Container>
         <Table dark>
         <thead>
@@ -41,6 +42,7 @@ class Schedule extends Component {
         </tbody>
       </Table>
     </Container>
+    </div>
     )
   }
 }
