@@ -1,4 +1,6 @@
 import React from 'react'
+import '../styles/scss/header.scss';
+import styled from 'styled-components';
 
 import {
   Collapse,
@@ -9,6 +11,19 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+
+const styles = {
+  navBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'red', // changing navbar color
+  },
+  navTitle: {
+    color: 'white', // changing navbar title color
+  },
+}
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -26,28 +41,22 @@ export default class Header extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div>      
         <head><title>Go</title></head>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/roster">Roster</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/schedule">Schedule</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/add">Add</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+          <Navbar primary color="dark" light expand="md">
+            <NavbarBrand href="/"><p>Home</p></NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/schedule"><p>Schedule</p></NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/add"><p>Add</p></NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>
+          </Navbar>
       </div>
     );
   }

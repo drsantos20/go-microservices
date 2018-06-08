@@ -12,8 +12,6 @@ class Register extends React.Component {
       event.preventDefault();
       const form = event.target;
       const data = new FormData(form);
-      console.log(data.get('Id'))
-      console.log(data.get('Name'))
 
       for (let name of data.keys()) {
         const input = form.elements[name];
@@ -30,19 +28,21 @@ class Register extends React.Component {
 
     render() {
       return (
-        <Container>
-          <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label for="Id">Id</Label>
-            <Input type="Id" name="Id" id="Id" placeholder="enter your Id" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="Name">Name</Label>
-            <Input type="Name" name="Name" id="Name" placeholder="enter your Name" />
-          </FormGroup>
-          <Button>Submit</Button>
-          </Form>
-        </Container>
+        <div id="register">
+          <Container>
+            <Form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Label for="Id">Id</Label>
+              <Input type="Id" name="Id" id="Id" placeholder="enter your Id" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="Name">Name</Label>
+              <Input type="Name" name="Name" id="Name" placeholder="enter your Name" />
+            </FormGroup>
+            <Button>Submit</Button>
+            </Form>
+          </Container>
+        </div>
 
       );
     }
