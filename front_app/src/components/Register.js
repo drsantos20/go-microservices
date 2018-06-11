@@ -21,7 +21,8 @@ class Register extends React.Component {
         method: 'POST',
         body: JSON.stringify({
           Id: data.get('Id'),
-          Name: data.get('Name')
+          Name: data.get('Name'),
+          Login: data.get('Login'),
         })
       });
     }
@@ -31,13 +32,17 @@ class Register extends React.Component {
         <div id="register">
           <Container>
             <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
+            <FormGroup row>
               <Label for="Id">Id</Label>
               <Input type="Id" name="Id" id="Id" placeholder="enter your Id" />
             </FormGroup>
-            <FormGroup>
+            <FormGroup row>
               <Label for="Name">Name</Label>
               <Input type="Name" name="Name" id="Name" placeholder="enter your Name" />
+            </FormGroup>
+            <FormGroup row>
+              <Label for="Login">Login</Label>
+              <Input type="Login" name="Login" id="Login" placeholder="enter your Login" />
             </FormGroup>
             <Button>Submit</Button>
             </Form>
