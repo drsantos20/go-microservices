@@ -32,12 +32,14 @@ class Schedule extends Component {
         <Table dark>
         <thead>
           <tr>
-            <th>First Name</th>
+            <th>Name</th>
+            <th>Login</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>{this.state.users.map((item,i) => <div key={i}>{item.name}</div>)}</td>
+            <td>{this.state.users.map((item,i) => <div key={i}>{item.login}</div>)}</td>
           </tr>
         </tbody>
       </Table>

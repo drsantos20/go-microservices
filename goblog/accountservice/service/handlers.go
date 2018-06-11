@@ -46,15 +46,15 @@ func CreateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	log.Println(t.Name)
-	log.Println(t.Id)
 
 	var account model.Account
 
 	account.Id = t.Id
 	account.Name = t.Name
+	account.Login = t.Login
 	account.Accounts = nil
 
-	println("before create ", account.Id, account.Name)
+	println("before create ", account.Id, account.Name, account.Login)
 	account, err := DBClient.CreateAccount(account)
 
 	if err != nil {

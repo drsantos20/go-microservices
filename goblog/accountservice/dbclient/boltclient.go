@@ -138,8 +138,9 @@ func (bc *BoltClient) seedAccounts() {
 
 		// Create an instance of our Account struct
 		acc := model.Account{
-			Id:   key,
-			Name: "Person_" + strconv.Itoa(i),
+			Id:    key,
+			Name:  "Person_" + strconv.Itoa(i),
+			Login: "Mail_@" + strconv.Itoa(i),
 		}
 
 		// Serialize the struct to JSON
